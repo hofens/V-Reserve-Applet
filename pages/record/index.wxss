@@ -1,0 +1,4 @@
+/* pages/record/index.wxss */
+.service_info{
+  margin-top: 50rpx;
+}

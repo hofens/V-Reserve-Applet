@@ -1,0 +1,14 @@
+<view class="main">
+  <view class="nav_wrap">
+    <scroll-view class="nav">
+      <view bindtap="activeNav" data-index="{{index}}"
+      class="nav_item {{index===currentIndexNav?'active':''}}" 
+      wx:for="{{navList}}" wx:key="index">
+        {{item}}
+      </view>
+    </scroll-view>
+  </view>
+  <view class="formbody">
+  hello world
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<view>
+  <view class="service_info">
+    <i-card title="当前办理业务" extra="{{serviceId}}">
+      <view slot="content">已预约的人数 <text style="float: right; font-size: 30rpx">{{reservedNum}}</text></view>
+      <view slot="footer">余号数量 <text style="float: right">{{residualNum}}</text></view>
+    </i-card>
+  </view>
+  <view class="reserve_form">
+    <form bindsubmit="formSubmit">
+      <i-panel title="预约信息">
+        <i-input value="{{ IDcard }}" name="IDcard" type="number" title="身份证号" mode="wrapped" placeholder="请输入身份证号" />
+        <i-input value="{{ phone }}" name="phone" type="number" title="联系电话" mode="wrapped" placeholder="请输入手机号" />
+        <i-input value="{{ phone }}" name="reserveTime" type="number" title="预约时间" mode="wrapped" placeholder="如2020-06-05 15:30" />
+      </i-panel>
+      <!-- <i-button formType="submit" type="info" shape="circle">提交</i-button> -->
+      <button form-type="submit" type="info" shape="circle">预约</button>
+    </form>
+    <i-toast id="toast" />
+  </view>
+</view>

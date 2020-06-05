@@ -1,0 +1,16 @@
+/* pages/reserve/service/service.wxss */
+button {
+  width: 75%;
+  background-color:#42a5f5;
+  color: white;
+  border-radius: 54rpx; 
+  margin-top: 160rpx;
+  height: 105rpx;
+  font-size: 40rpx;
+}
+.service_info{
+  margin-top: 50rpx;
+}
+.reserve_form{
+  margin-top: 100rpx;
+}

@@ -1,0 +1,11 @@
+<view>
+
+  <view class="service_button">
+    <navigator url="../myservice/index?id={{buttonId}}">
+      <i-button type="info" shape="circle">医社保办理</i-button>
+    </navigator>
+    
+    <i-button bind:click="handleClick" type="info" shape="circle">护照通行证办理</i-button>
+    <i-button bind:click="handleClick" type="info" shape="circle">水电煤气业务办理</i-button>
+  </view>
+</view>
