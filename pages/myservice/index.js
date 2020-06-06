@@ -7,12 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serviceId: 0,
+    serviceName: 'hello',
     IDcard: 12816386,
     phone: 121313,
     reservedNum: 0,
     residualNum: 0,
-    serialNumber: 202006050027
+    serialNumber: 202006050027,
   },
   formSubmit: function (e) {
     var that = this; 
@@ -20,7 +20,7 @@ Page({
 
     wx.request({ 
         
-      url: 'app.globalData.url'+'addUser',  
+      url: getApp().globalData.url+'addUser',  
       data:{
         'IDcard': e.detail.value.IDcard,
         'phone': e.detail.value.phone,
@@ -52,7 +52,34 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const that = this
+    wx.request({ 
+      url: getApp().globalData.url+'/business/selectOne/',  
+      data:{
+        'serviceId': 1
+      },  
+      method: 'GET',  
+      header: {
+        'content-type': 'application/json'
+      },
+      success:function(res) { 
+        console.log('submit success'); 
+        that.setData({
+          serviceName: res.data.serviceName,
+          reservedNum: res.data.reserveNum,
+          residualNum: res.data.residualNum
+        })
+        
+        console.log(that.data.serviceName)
+      },  
+      fail:function(res){  
+          console.log('submit fail');
+          $Toast({
+            content: '输入不能为空',
+            type: 'warning'
+        });
+      }  
+    })
   },
 
   /**

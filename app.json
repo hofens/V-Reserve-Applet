@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/take/index",
     "pages/record/index",
     "pages/reserve/index",
     "pages/myservice/index",
     
-    "pages/take/index",
+    
     
     "pages/index/index",
     "pages/logs/logs"

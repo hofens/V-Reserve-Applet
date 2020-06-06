@@ -1,18 +1,83 @@
 // pages/take/index.js
+const { $Toast } = require('../../dist/base/index');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    navList:["现场取票","预约取票"],
-    currentIndexNav:0
+    currentData : 0,  /* 当前选中的选项卡 */
+    items: [
+      {value: '0', name: '医社保办理', checked: 'true'},
+      {value: '1', name: '护照通行证办理'},
+      {value: '2', name: '房产证办理'},
+      {value: '3', name: '水电煤气业务办理'}
+    ],
+    choosedService: -1,
+    IDcard: '12345'
   },
 
-  activeNav(e){
-    this.setData({
-      currentIndexNav:e.target.dataset.index
+  bindchange:function(e){
+    const that  = this;
+    that.setData({
+      currentData: e.detail.current
     })
+  },
+  checkCurrent:function(e){
+    const that = this;
+ 
+    if (that.data.currentData === e.target.dataset.current){
+        return false;
+    }else{
+ 
+      that.setData({
+        currentData: e.target.dataset.current
+      })
+    }
+  },
+
+  radioChange(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    const choosedService = e.detail.value
+    const items = this.data.items
+    for (let i = 0, len = items.length; i < len; ++i) {
+      items[i].checked = items[i].value === e.detail.value
+    }
+    this.setData({
+      items,
+      choosedService: choosedService
+    })
+  },
+  formSubmit: function (e) {
+    var that = this; 
+    console.log(this.data.choosedService)
+    console.log(this.data.IDcard)
+    wx.request({ 
+        
+      url: 'app.globalData.url'+'addUser',  
+      data:{
+        'choosed': this.data.choosedService,
+        'idcard': this.data.IDcard
+      },  
+      method: 'POST',  
+      header: {
+        'content-type': 'application/json'
+      },
+      success:function(res) {  
+        console.log('submit success'); 
+        $Toast({
+          content: res.code,
+          type: 'success'
+      });  
+      },  
+      fail:function(res){  
+          console.log('submit fail');
+          $Toast({
+            content: '无法取号',
+            type: 'warning'
+        });
+      }  
+    }) 
   },
   /**
    * 生命周期函数--监听页面加载

@@ -5,4 +5,5 @@
       <view slot="footer">取号时间<text style="float: right">{{takeTime}}</text></view>
     </i-card>
   </view>
+  
 </view>

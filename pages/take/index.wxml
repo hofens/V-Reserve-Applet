@@ -1,14 +1,35 @@
 <view class="main">
-  <view class="nav_wrap">
-    <scroll-view class="nav">
-      <view bindtap="activeNav" data-index="{{index}}"
-      class="nav_item {{index===currentIndexNav?'active':''}}" 
-      wx:for="{{navList}}" wx:key="index">
-        {{item}}
+  <view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>现场取号</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>预约取号</view>
+  </view>
+  <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+    <swiper-item>
+      <view class='swiper_con'>
+        <form bindsubmit="formSubmit">
+          <text>请选择业务类型</text>
+          <view> 
+            <radio-group bindchange="radioChange">
+              <label class="radio_text" wx:for="{{items}}" wx:key="value">
+                <view class="weui-cell__hd"><radio value="{{item.value}}" /></view>
+                <view class="weui-cell__bd">{{item.name}}</view>
+              </label>
+            </radio-group>
+          </view>
+          <button form-type="submit" type="info" shape="circle">取号</button>
+        </form>
       </view>
-    </scroll-view>
-  </view>
-  <view class="formbody">
-  hello world
-  </view>
+    </swiper-item>
+    <swiper-item>
+      <view class='swiper_con'>
+        <form bindsubmit="formSubmit">
+          <i-panel title="预约信息">
+            <i-input value="{{ IDcard }}" name="IDcard" type="number" title="身份证号" mode="wrapped" placeholder="请输入身份证号" />
+          </i-panel>
+          <button form-type="submit" type="info" shape="circle">取号</button>
+        </form>
+      </view>
+    </swiper-item>
+  </swiper>
+  <i-toast id="toast" />
 </view>

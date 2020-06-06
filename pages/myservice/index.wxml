@@ -1,6 +1,6 @@
 <view>
   <view class="service_info">
-    <i-card title="当前办理业务" extra="{{serviceId}}">
+    <i-card title="当前办理业务" extra="{{serviceName}}">
       <view slot="content">已预约的人数 <text style="float: right; font-size: 30rpx">{{reservedNum}}</text></view>
       <view slot="footer">余号数量 <text style="float: right">{{residualNum}}</text></view>
     </i-card>

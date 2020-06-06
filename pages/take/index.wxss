@@ -1,21 +1,49 @@
 /* pages/take/index.wxss */
 
-page{
-  color: #666;
+button {
+  width: 75%;
+  background-color:#42a5f5;
+  color: white;
+  border-radius: 54rpx; 
+  margin-top: 160rpx;
+  height: 105rpx;
+  font-size: 40rpx;
 }
 
-
-.nav{
-  white-space: nowrap;
-  padding: 5rpx 0;
+.tab {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+ 
+.topTabSwiper {
+  border-bottom: 1px solid #ccc;
+  zoom: 1;
+}
+ 
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+ 
+.tabBorer {
+  border-bottom: 1px solid #f00;
+  color: #00b26a;
+}
+ 
+.swiper {
+  width: 100%;
+}
+ 
+.swiper_con {
+  
+  width: 100%;
+  height: 100%;
+  padding: 30rpx 30rpx 0rpx 0rpx;
 }
 
-.nav_item{
-  padding: 20rpx 45rpx;
-  font-size: 30rpx;
-  display: inline-block;
-}
-
-.nav_item.active{
-  border-bottom: 5rpx solid #de688b;
+.radio_text{
+  display: flex;
 }
