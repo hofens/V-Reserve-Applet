@@ -119,15 +119,19 @@
 
 <img src="https://gitee.com/hofe/graph/raw/master/img/20200610143821.png" style="zoom: 50%;" />
 
-点击要办理的具体业务，顶部会显示业务类型、已预约人数、余票，余票数量为0则不可再进行预约
 
+
+点击要办理的具体业务，顶部会显示业务类型、已预约人数、余票，余票数量为0则不可再进行预约;
+
+余量充足的情况下可进行预约，并得到预约编号。
+
+<div>
 <img src="https://gitee.com/hofe/graph/raw/master/img/20200610144123.png" style="zoom:50%;" />
-
-
-
-余量充足的情况下可进行预约，并得到预约编号
-
 <img src="https://gitee.com/hofe/graph/raw/master/img/20200610144243.png" style="zoom:50%;" />
+
+
+
+
 
 #### 4.2 预约历史
 
@@ -139,29 +143,88 @@
 
 #### 4.3 取票客户端
 
-分为现场取票部分和预约取票两部分
+分为现场取票部分和预约取票两部分。现场取票通过选择业务进行取号；预约取票通过输入身份证号码进行取票
 
-现场取票通过选择业务进行取号
-
-<img src="https://gitee.com/hofe/graph/raw/master/img/20200610144601.png" style="zoom:50%;" />
-
-预约取票通过输入身份证号码进行取票
-
-<img src="https://gitee.com/hofe/graph/raw/master/img/20200610144754.png" style="zoom:50%;" />
+，未预约则提示无预约记录，取票成功之后可发现，记录已经删除
 
 
 
-未预约则提示无预约记录
-
-<img src="https://gitee.com/hofe/graph/raw/master/img/20200610144850.png" style="zoom:50%;" />
-
-
-
-取票成功之后可发现，记录已经删除
-
-<img src="https://gitee.com/hofe/graph/raw/master/img/20200610145000.png" style="zoom:50%;" />
+<div>
+    <img src="https://gitee.com/hofe/graph/raw/master/img/20200610144601.png" style="zoom:50%;" />
+    <img src="https://gitee.com/hofe/graph/raw/master/img/20200610144754.png" style="zoom:50%;" />
+    <img src="https://gitee.com/hofe/graph/raw/master/img/20200610144850.png" style="zoom:50%;" />
+    <img src="https://gitee.com/hofe/graph/raw/master/img/20200610145000.png" style="zoom:50%;" />
 
 
 
 
 
+
+
+
+
+
+### 五、开发过程出现的问题
+
+#### 5.1 tabBar不显示问题
+
+欢迎页是pages/index/index，但list的第一项不是pages/index/index就会tabBar不显示
+
+```js
+"pages":[
+    "pages/index/index",
+    "pages/reserve/index",
+    "pages/take/index",
+    "pages/record/index",
+    "pages/logs/logs"
+  ],
+"tabBar": {
+    "list": [{
+      "pagePath": "pages/reserve/index",
+      "text": "预约",
+      "iconPath": "icons/reserve_index.png",
+      "selectedIconPath": "icons/reserve_index.png"
+    },{
+      "pagePath": "pages/take/index",
+      "text": "取号",
+      "iconPath": "icons/take_index.png",
+      "selectedIconPath": "icons/take_index.png"
+    },{
+      "pagePath": "pages/record/index",
+      "text": "预约历史",
+      "iconPath": "icons/record_index.png",
+      "selectedIconPath": "icons/record_index.png"
+    }]
+```
+
+
+
+
+
+#### 5.2 iView的button组件无法绑定submit事件
+
+```javascript
+<view>
+  <form bindsubmit="formSubmit">
+    <i-panel title="预约信息">
+      <i-input value="{{ IDcard }}" name="IDcard" type="number" title="身份证号" mode="wrapped" placeholder="请输入身份证号" />
+      <i-input value="{{ phone }}" name="phone" type="number" title="联系电话" mode="wrapped" placeholder="请输入手机号" />
+      <i-input value="{{ phone }}" name="reserveTime" type="number" title="预约时间" mode="wrapped" placeholder="如2020-06-05 15:30" />
+    </i-panel>
+    <i-button formType="submit" type="info" shape="circle">提交</i-button>
+    <!-- <button form-type="submit" type="info" shape="circle">提交></button> -->
+  </form>
+</view>
+```
+
+第8行是iView中的组件按钮，点击的时候无法提交表单
+
+
+
+#### 5.3 iView的输入框无法输入
+
+```html
+<i-input value="{{ value2 }}" title="姓名" autofocus placeholder="请输入用户姓名" maxlength="100"/>
+```
+
+要加个maxlength才行
