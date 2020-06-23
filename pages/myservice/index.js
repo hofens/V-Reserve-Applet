@@ -7,35 +7,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serviceName: 'hello',
-    IDcard: 12816386,
-    phone: 121313,
+    serviceId: 0,
+    serviceName: '加载中',
+    IDcard: '3501232020',
+    phone: 12345678910,
+    reserveTakeTime: '2020-6-9 13:23:01',
     reservedNum: 0,
     residualNum: 0,
     serialNumber: 202006050027,
+
+    time: '12:00',
+    date: '2020-06-17',
   },
   formSubmit: function (e) {
     var that = this; 
     console.log(e.detail.value)
-
     wx.request({ 
-        
-      url: getApp().globalData.url+'addUser',  
+      url: getApp().globalData.url+'/order/insertOne',
       data:{
-        'IDcard': e.detail.value.IDcard,
+        'idcard': e.detail.value.IDcard,
         'phone': e.detail.value.phone,
-        'reserveTime': e.detail.value.reserveTime
+        'serviceId': that.data.serviceId,
+        'reserveTakeTime': that.data.date+' '+that.data.time+':00'
       },  
       method: 'POST',  
       header: {
-        'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
       },
       success:function(res) {  
         console.log('submit success'); 
-        $Toast({
-          content: res.code,
-          type: 'success'
-      });  
+        if(res.data.code == '100'){
+          $Toast({
+            content: '余量不足',
+            type: 'warning'
+          });
+        }else{
+          $Toast({
+            content: '预约编号: '+res.data.data.serialNum,
+            type: 'success'
+          });
+        }
+        
+        if (getCurrentPages().length != 0) {
+          //刷新当前页面的数据
+          getCurrentPages()[getCurrentPages().length - 1].onLoad()
+        }
       },  
       fail:function(res){  
           console.log('submit fail');
@@ -46,17 +62,33 @@ Page({
       }  
     }) 
   },
-
+  TimeChange(e) {
+    this.setData({
+      time: e.detail.value
+    })
+  },
+  DateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.serviceId)
+    console.log(options)
+    
+    this.setData({
+      serviceId: options.id
+    })
+    console.log(this.data.serviceId)
     const that = this
     wx.request({ 
       url: getApp().globalData.url+'/business/selectOne/',  
       data:{
-        'serviceId': 1
+        'serviceId': that.data.serviceId
       },  
       method: 'GET',  
       header: {
@@ -71,14 +103,7 @@ Page({
         })
         
         console.log(that.data.serviceName)
-      },  
-      fail:function(res){  
-          console.log('submit fail');
-          $Toast({
-            content: '输入不能为空',
-            type: 'warning'
-        });
-      }  
+      }
     })
   },
 

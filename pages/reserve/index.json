@@ -1,10 +1,12 @@
 {
+  "component": true,
   "navigationBarTitleText": "预约",
   "usingComponents": {
     "i-button": "../../dist/button/index",
     "i-steps": "../../dist/steps/index",
     "i-step": "../../dist/step/index",
     "i-radio-group": "../../dist/radio-group/index",
-    "i-radio": "../../dist/radio/index"
+    "i-radio": "../../dist/radio/index",
+    "i-card": "../../dist/card/index"
   }
 }

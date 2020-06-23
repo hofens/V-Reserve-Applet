@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "取号",
   "usingComponents": {
     "i-radio-group": "../../dist/radio-group/index",
     "i-radio": "../../dist/radio/index",

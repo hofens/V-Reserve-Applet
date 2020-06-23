@@ -1,8 +1,8 @@
 <view>
-  <view class="service_info">
-    <i-card title="办事编号" extra="{{serialNumber}}">
-      <view slot="content" style="font-size: 30rpx">身份证号码<text style="float: right">{{IDcard}}</text></view>
-      <view slot="footer">取号时间<text style="float: right">{{takeTime}}</text></view>
+  <view class="service_info" wx:for="{{orderList}}">
+    <i-card title="办事编号" extra="{{item.serialNum}}">
+      <view slot="content" style="font-size: 30rpx">身份证号码<text style="float: right">{{item.idcard}}</text></view>
+      <view slot="footer">取号时间<text style="float: right">{{item.reserveTakeTime}}</text></view>
     </i-card>
   </view>
   

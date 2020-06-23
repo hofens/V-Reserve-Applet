@@ -1,11 +1,19 @@
-<view>
-
-  <view class="service_button">
-    <navigator url="../myservice/index?id={{buttonId}}">
-      <i-button type="info" shape="circle">医社保办理</i-button>
+<scroll-view scroll-y class="scrollPage">
+  <swiper style="margin-top:30rpx" class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    </view>
+  </swiper-item>
+  </swiper>
+  
+  <view class='nav-list' style="margin-top:90rpx">
+    <navigator open-type="navigate" hover-class='none' url="../myservice/index?id={{item.id}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key>
+      <view class="nav-title">{{item.title}}</view>
+      <view class="nav-name">{{item.name}}</view>
+      <text class='cuIcon-{{item.icon}}'></text>
     </navigator>
-    
-    <i-button bind:click="handleClick" type="info" shape="circle">护照通行证办理</i-button>
-    <i-button bind:click="handleClick" type="info" shape="circle">水电煤气业务办理</i-button>
   </view>
-</view>
+
+</scroll-view>

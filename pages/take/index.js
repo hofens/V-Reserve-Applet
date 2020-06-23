@@ -8,19 +8,20 @@ Page({
   data: {
     currentData : 0,  /* 当前选中的选项卡 */
     items: [
-      {value: '0', name: '医社保办理', checked: 'true'},
+      {value: '0', name: '医社保办理'},
       {value: '1', name: '护照通行证办理'},
       {value: '2', name: '房产证办理'},
       {value: '3', name: '水电煤气业务办理'}
     ],
-    choosedService: -1,
-    IDcard: '12345'
+    choosedService: '',
+    IDcard: ''
   },
 
   bindchange:function(e){
     const that  = this;
     that.setData({
-      currentData: e.detail.current
+      currentData: e.detail.current,
+      choosedService: ''
     })
   },
   checkCurrent:function(e){
@@ -52,23 +53,33 @@ Page({
     var that = this; 
     console.log(this.data.choosedService)
     console.log(this.data.IDcard)
+
     wx.request({ 
         
-      url: 'app.globalData.url'+'addUser',  
+      url: getApp().globalData.url+'/order/selectByOrder',  
       data:{
-        'choosed': this.data.choosedService,
-        'idcard': this.data.IDcard
+        'takeType': this.data.currentData,
+        'idcard': e.detail.value.IDcard,
+        // 'idcard':'12816386',
+        'serviceId': this.data.choosedService
       },  
       method: 'POST',  
       header: {
-        'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
       },
       success:function(res) {  
         console.log('submit success'); 
-        $Toast({
-          content: res.code,
-          type: 'success'
-      });  
+        if(res.data.code == '101'){
+          $Toast({
+            content: res.data.msg,
+            type: 'warning'
+          });
+        }else{
+          $Toast({
+            content: '预约编号: '+res.data.data.serialNum,
+            type: 'success'
+          });
+        }
       },  
       fail:function(res){  
           console.log('submit fail');
@@ -77,7 +88,7 @@ Page({
             type: 'warning'
         });
       }  
-    }) 
+    })
   },
   /**
    * 生命周期函数--监听页面加载

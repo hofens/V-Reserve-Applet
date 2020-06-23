@@ -1,11 +1,9 @@
 {
   "pages": [
-    "pages/take/index",
-    "pages/record/index",
     "pages/reserve/index",
     "pages/myservice/index",
-    
-    
+    "pages/take/index",
+    "pages/record/index",
     
     "pages/index/index",
     "pages/logs/logs"
@@ -21,19 +19,15 @@
     "list": [
       {
         "pagePath": "pages/reserve/index",
-        "text": "预约",
         "iconPath": "icons/reserve_index.png",
         "selectedIconPath": "icons/reserve_index.png"
       },
       {
         "pagePath": "pages/take/index",
-        "text": "取号",
         "iconPath": "icons/take_index.png",
         "selectedIconPath": "icons/take_index.png"
-      },
-      {
+      },{
         "pagePath": "pages/record/index",
-        "text": "预约历史",
         "iconPath": "icons/record_index.png",
         "selectedIconPath": "icons/record_index.png"
       }

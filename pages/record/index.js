@@ -5,20 +5,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serialNumber: 202006050027,
-    IDcard: "35012487294924",
-    takeTime:"2020-6-6 15:02",
-    reserveTime:"2020-6-5",
-    serviceId:"1",
-    recordId:"2",
-    user:"lili",
+    orderList:{
+      serialNum:0,
+      idcard:0,
+      reserveTakeTime:0,
+    },
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
 
+    const that = this
+    wx.request({ 
+      url: getApp().globalData.url+'/order/selectAll',  
+      method: 'GET',  
+      data:{
+
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success:function(res) { 
+        console.log('submit success'); 
+        console.log(res.data)
+        that.setData({
+          orderList: res.data.data
+        })
+        console.log(that.data.orderList)
+      }
+    })
   },
 
   /**
@@ -53,7 +72,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    if (getCurrentPages().length != 0) {
+      //刷新当前页面的数据
+      getCurrentPages()[getCurrentPages().length - 1].onLoad()
+    }
   },
 
   /**

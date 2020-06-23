@@ -8,12 +8,28 @@
   <view class="reserve_form">
     <form bindsubmit="formSubmit">
       <i-panel title="预约信息">
-        <i-input value="{{ IDcard }}" name="IDcard" type="number" title="身份证号" mode="wrapped" placeholder="请输入身份证号" />
-        <i-input value="{{ phone }}" name="phone" type="number" title="联系电话" mode="wrapped" placeholder="请输入手机号" />
-        <i-input value="{{ phone }}" name="reserveTime" type="number" title="预约时间" mode="wrapped" placeholder="如2020-06-05 15:30" />
+        <i-input value="{{ IDcard }}" name="IDcard" type="number" title="身份证号" mode="wrapped" placeholder="请输入身份证号" maxlength="100"/>
+        <i-input value="{{ phone }}" name="phone" type="number" title="联系电话" mode="wrapped" placeholder="请输入手机号" maxlength="100"/>
+        <!-- <i-input value="{{ reserveTakeTime }}" name="reserveTakeTime" type="number" title="预约时间" mode="wrapped" placeholder="如2020-06-05 15:30" /> -->
+        <view class="cu-form-group" style="margin: 30rpx;color: #495060;">
+          <view class="title">日期选择</view>
+          <picker mode="date" value="{{date}}" start="2020-06-01" end="2022-12-01" bindchange="DateChange">
+            <view class="picker">
+              {{date}}
+            </view>
+          </picker>
+        </view>
+        <view class="cu-form-group" style="margin: 30rpx;color: #495060;">
+          <view class="title">时间选择</view>
+          <picker mode="time" value="{{time}}" start="09:01" end="17:01" bindchange="TimeChange">
+            <view class="picker">
+              {{time}}
+            </view>
+          </picker>
+        </view>
       </i-panel>
       <!-- <i-button formType="submit" type="info" shape="circle">提交</i-button> -->
-      <button form-type="submit" type="info" shape="circle">预约</button>
+      <button form-type="submit" type="info" shape="circle" style="text-align:center">预约</button>
     </form>
     <i-toast id="toast" />
   </view>
